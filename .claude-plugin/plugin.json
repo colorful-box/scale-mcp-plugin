@@ -1,0 +1,15 @@
+{
+  "name": "scale-mcp-guide",
+  "version": "1.0.0",
+  "description": "Scale人事評価システムのMCPツール活用ガイド。scale_*ツールの使い方、ワークフローパターン、ロール別操作ガイドを提供する。",
+  "author": {
+    "name": "Colorful Box",
+    "url": "https://github.com/colorful-box"
+  },
+  "homepage": "https://github.com/colorful-box/scale-mcp-plugin",
+  "repository": "https://github.com/colorful-box/scale-mcp-plugin",
+  "license": "MIT",
+  "keywords": ["scale", "hr", "mcp", "evaluation"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

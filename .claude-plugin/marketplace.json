@@ -1,0 +1,25 @@
+{
+  "name": "colorful-box-plugins",
+  "owner": {
+    "name": "Colorful Box"
+  },
+  "metadata": {
+    "description": "Colorful Box提供のClaude Codeプラグイン",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "scale-mcp-guide",
+      "source": {
+        "source": "github",
+        "repo": "colorful-box/scale-mcp-plugin"
+      },
+      "description": "Scale人事評価システムのMCPツール活用ガイド",
+      "version": "1.0.0",
+      "repository": "https://github.com/colorful-box/scale-mcp-plugin",
+      "license": "MIT",
+      "keywords": ["scale", "hr", "mcp", "evaluation"],
+      "category": "productivity"
+    }
+  ]
+}

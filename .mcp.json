@@ -1,0 +1,6 @@
+{
+  "scale": {
+    "type": "http",
+    "url": "https://mcp.scale-hr.io/mcp"
+  }
+}
