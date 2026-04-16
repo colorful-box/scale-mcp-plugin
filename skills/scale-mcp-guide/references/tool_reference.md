@@ -109,20 +109,45 @@
 
 `axes` の詳細は `references/template_settings.md` を参照。全て `company_admin` ロール。
 
-## 評価シート（12+ツール）
+## 評価シート（18+ツール）
+
+### 基本操作
 
 | ツール | ロール | 説明 |
 |--------|--------|------|
 | `scale_list_evaluation_sheets` | admin | 一覧（フィルタ・ソート対応） |
 | `scale_get_evaluation_sheet` | general | 詳細（`admin_mode=true`で管理者権限取得可） |
-| `scale_update_evaluation_sheet_status` | admin | ステータス強制変更（神の手） |
-| `scale_bulk_update_status` | admin | 一括ステータス変更（神の手） |
 | `scale_submit_evaluation_sheet` | general | ワークフロー提出 |
 | `scale_reject_evaluation_sheet` | general | 差戻し（`reason`指定可） |
 | `scale_calculate_scores` | admin | スコア再計算 |
+
+### 神の手（配布済みシート修正）
+
+配布後の評価シートを管理者権限で強制編集する機能。通常ワークフローを迂回するため慎重に使用。
+
+| ツール | 説明 | 主要パラメータ |
+|--------|------|--------------|
+| `scale_update_evaluation_sheet_status` | ステータス強制変更 | `sheet_id`, `status` |
+| `scale_bulk_update_status` | 一括ステータス変更 | `sheet_ids`, `status` |
+| `scale_god_hand_update_axis` | 評価軸の編集 | `sheet_id`, `axis_id`, 任意: `name`, `weight`(0-100), `show_scale`, `scale_labels` |
+| `scale_god_hand_update_item` | 評価項目の編集 | `sheet_id`, `item_id`, 任意: `name`, `detail`, `weight`, `show_item_scale`, `item_scale_labels` |
+| `scale_god_hand_update_profile` | 被評価者・評価者・期間の変更 | `sheet_id`, 任意: `evaluatee_user_id`, `evaluator_1st/2nd/3rd_user_id`, `evaluation_period_id`, 職種・職位・所属名 |
+| `scale_god_hand_create_memo` | メモ追加 | `sheet_id`, `label`(1-100文字), `sort_order` |
+| `scale_god_hand_update_memo` | メモ編集 | `sheet_id`, `memo_id`, 任意: `label`, `sort_order` |
+| `scale_god_hand_delete_memo` | メモ削除 | `sheet_id`, `memo_id` |
+
+### 削除・復元
+
+| ツール | ロール | 説明 |
+|--------|--------|------|
 | `scale_bulk_delete_evaluation_sheets` | admin | 一括削除（論理削除、`reason`指定可） |
 | `scale_list_deleted_sheets` | admin | 削除済みシート一覧 |
 | `scale_restore_deleted_sheet` | admin | 削除済みシート復元 |
+
+### CSV エクスポート
+
+| ツール | ロール | 説明 |
+|--------|--------|------|
 | `scale_export_items_csv` | admin | 項目データCSV（`sheet_ids`カンマ区切り） |
 | `scale_export_scores_csv` | admin | 評点データCSV |
 | `scale_export_memos_csv` | admin | メモデータCSV |
