@@ -2,8 +2,6 @@
 
 ユーザーが Excel でテンプレート設計を提出した場合、この仕様に従って読み取り、`scale_create_template` の `axes` パラメータに変換する。
 
-サンプルファイル: `templates/template_creation_sample.xlsx`
-
 ## 全体構成
 
 Excel は評価制度設計用のワークブックで、以下のシートを参照する:

@@ -134,7 +134,6 @@ Claude Code が以下のツールを自動的に実行します:
 | `references/template_settings.md` | テンプレート設定の全パラメータと典型パターン例 |
 | `references/template_excel_format.md` | Excel入力フォーマット仕様 |
 | `references/tool_reference.md` | 全79ツールのカテゴリ別リファレンス |
-| `templates/template_creation_sample.xlsx` | テンプレート作成用Excelサンプル |
 
 ### 一般ユーザー向け（`scale-mcp-guide-general`）
 
