@@ -72,6 +72,16 @@
 
 削除はユーザーに紐付いている場合は不可。全て `company_admin` ロール。
 
+## ピッチ金額（3ツール）
+
+| ツール | 説明 |
+|--------|------|
+| `scale_get_pitch_amount_setting` | 現在のピッチ金額設定（mode + 職位×金額一覧）を取得。未設定時は null |
+| `scale_get_pitch_amount_matrix` | 職種×職位のマトリックス形式で取得（編集UI向け） |
+| `scale_update_pitch_amount_setting` | 一括更新（完全置換）。`mode`(`all`/`individual`) と `amounts: list[{occupation_id, position_id, amount}]` を指定 |
+
+1企業につき設定は1件のみ。`mode='all'`（全職種共通）の場合は `amounts[].occupation_id` を `null`、`mode='individual'`（職種別）の場合は職種IDを指定する。全て `company_admin` ロール。
+
 ## ランク設定（5ツール）
 
 | ツール | 説明 |
