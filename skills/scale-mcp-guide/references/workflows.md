@@ -11,7 +11,22 @@ scale_create_position      → 職位（部長、課長、一般等）
 scale_create_occupation    → 職種（営業、開発、管理等）
 scale_create_affiliation   → 所属（営業部、開発部等）
 scale_create_score_notation → 評点表記（5段階、10段階等）
-scale_create_rank          → ランク設定（S/A/B/C/D等）
+scale_create_rank          → ランク設定（S/A/B/C/D等、levels で範囲指定）
+```
+
+ランク設定の例（`levels` の制約: 最下位 `min_score=0` / 最上位 `max_score=100` / 隙間・重複不可）:
+
+```
+scale_create_rank(
+  name="標準ランク",
+  levels=[
+    {"label":"D","min_score":0, "max_score":60},
+    {"label":"C","min_score":60,"max_score":80},
+    {"label":"B","min_score":80,"max_score":90},
+    {"label":"A","min_score":90,"max_score":100},
+  ],
+  description="2026年度標準",
+)
 ```
 
 各マスタの一覧確認: `scale_list_positions` / `scale_list_occupations` / `scale_list_affiliations`
@@ -185,7 +200,26 @@ scale_god_hand_delete_memo(sheet_id=X, memo_id=Y)
 - 複数シートの同時編集は不可（1シートずつ実行）
 - 実行前に `scale_get_evaluation_sheet` で現状確認すること
 
-## 5. 日常管理
+## 5. ユーザー管理
+
+### 退職処理（重要: 論理削除と区別する）
+
+退職するユーザーは「退職フラグ」を立てる。`scale_delete_user`（論理削除）を退職処理として使ってはいけない（退職者検索からも消えてしまう）。
+
+```
+scale_update_user(
+  user_id=X,
+  is_retired=True
+)
+```
+
+- 退職処理後はログイン不可（既存 `auth_service` が拒否）
+- 退職者検索（`is_retired=true`）でヒット
+- データは保持される
+
+`scale_delete_user` は誤登録の取り消し用途で使うこと。
+
+## 6. 日常管理
 
 ### 提出状況の確認
 
@@ -219,7 +253,7 @@ scale_bulk_update_status(
 )
 ```
 
-## 6. データ分析・レポート
+## 7. データ分析・レポート
 
 ### CSVエクスポート
 
@@ -249,7 +283,7 @@ scale_list_affiliations(...)           → 部門マスタ
 → データを組み合わせて部門別・ランク別などの集計
 ```
 
-## 7. 一般ユーザー向け
+## 8. 一般ユーザー向け
 
 ### 自分のシートを確認
 

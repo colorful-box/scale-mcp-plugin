@@ -13,10 +13,14 @@
 | `scale_list_users` | 一覧（フィルタ・ページネーション） | `search_name`, `search_email`, `occupation_id`, `position_id`, `affiliation_id`, `roles` |
 | `scale_get_user` | 詳細 | `user_id` |
 | `scale_create_user` | 作成 | `employee_code`(必須), `name`(必須), `password`(必須), `roles`(必須), `email`, `occupation_id`, `position_id`, `affiliation_id` |
-| `scale_update_user` | 更新 | `user_id`(必須), 変更フィールドのみ指定 |
-| `scale_delete_user` | 削除（論理削除） | `user_id` |
+| `scale_update_user` | 更新（退職処理は `is_retired=True` を指定） | `user_id`(必須), 変更フィールドのみ指定。`is_retired` で退職処理（ログイン不可・退職者検索ヒット） |
+| `scale_delete_user` | 論理削除（誤登録の取り消し用、退職処理ではない） | `user_id` |
 
 全て `company_admin` ロール。パスワードはランダム生成を推奨（チャット履歴に残るため）。
+
+**退職と論理削除の使い分け:**
+- 退職処理 → `scale_update_user(user_id, is_retired=True)`（データ保持・退職者検索でヒット・ログイン拒否）
+- 誤登録の取り消し → `scale_delete_user(user_id)`（一覧から消える論理削除）
 
 ## ダッシュボード（5ツール）
 
@@ -84,15 +88,42 @@
 
 ## ランク設定（5ツール）
 
-| ツール | 説明 |
-|--------|------|
-| `scale_list_ranks` | ランク設定一覧 |
-| `scale_get_rank` | ランク設定詳細 |
-| `scale_create_rank` | ランク設定作成 |
-| `scale_update_rank` | ランク設定更新 |
-| `scale_delete_rank` | ランク設定削除（評価シートに紐付いていると不可） |
+| ツール | 説明 | 主要パラメータ |
+|--------|------|--------------|
+| `scale_list_ranks` | ランク設定一覧 | — |
+| `scale_get_rank` | ランク設定詳細 | `rank_setting_id` |
+| `scale_create_rank` | ランク設定作成 | `name`(必須), `levels`(必須), `description`(任意・最大500文字) |
+| `scale_update_rank` | ランク設定更新（部分更新） | `rank_setting_id`(必須), `name`, `description`, `levels`, `is_active` |
+| `scale_delete_rank` | ランク設定削除（評価シートに紐付いていると不可） | `rank_setting_id` |
 
 全て `company_admin` ロール。
+
+### `levels` の指定形式
+
+`list[dict]` 形式。各要素は以下:
+
+| キー | 型 | 必須 | 説明 |
+|-----|----|----|------|
+| `label` | string | ○ | ランク名（例: `"S"`, `"A"`） |
+| `min_score` | number | ○ | 範囲の下限 |
+| `max_score` | number | ○ | 範囲の上限 |
+| `sort_order` | integer | × | 表示順 |
+| `salary_step_change` | integer | × | 号俸増減 |
+
+**バリデーション制約（`levels` 指定時）:**
+- 最下位ランクの `min_score` は必ず `0`
+- 最上位ランクの `max_score` は必ず `100`
+- ランク範囲に隙間や重複があってはならない
+
+例:
+```python
+levels=[
+  {"label": "D", "min_score": 0,  "max_score": 60},
+  {"label": "C", "min_score": 60, "max_score": 80},
+  {"label": "B", "min_score": 80, "max_score": 90},
+  {"label": "A", "min_score": 90, "max_score": 100},
+]
+```
 
 ## 評点表記（5ツール）
 
