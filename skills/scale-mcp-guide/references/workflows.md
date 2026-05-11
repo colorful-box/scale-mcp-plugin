@@ -11,6 +11,10 @@ scale_create_position      → 職位（部長、課長、一般等）
 scale_create_occupation    → 職種（営業、開発、管理等）
 scale_create_affiliation   → 所属（営業部、開発部等）
 scale_create_score_notation → 評点表記（5段階、10段階等）
+  # 数値表記: scale_create_score_notation(name="5段階", score_levels=5)
+  # カスタムラベル: scale_create_score_notation(name="SABCD", score_levels=5, labels={"1":"D","2":"C","3":"B","4":"A","5":"S"})
+  # list 形式の labels も自動で 1-origin dict に変換される
+  # use_custom_labels は labels の有無から自動推論（明示指定も可）
 scale_create_rank          → ランク設定（S/A/B/C/D等、levels で範囲指定）
 ```
 
@@ -158,13 +162,16 @@ scale_god_hand_update_axis(
   sheet_id=X,
   axis_id=Y,
   weight=60,                            → ウェイト変更
-  scale_labels={"1":"D","2":"C",...}    → スケールラベル変更
+  scale_labels={"1":"D","2":"C",...},   → スケールラベル変更
+  objective_type="outcome"              → 目標タイプ変更（outcome/behavior/other）
 )
 scale_god_hand_update_item(
   sheet_id=X,
   item_id=Z,
+  category="売上",                       → カテゴリ変更（最大100文字）
   name="新項目名",
   detail="修正された詳細",
+  goal="新しい目標テキスト",              → 目標テキスト変更
   weight=3,
   item_scale_labels={"1":"未達","2":"達成"}
 )
@@ -244,7 +251,7 @@ scale_reject_evaluation_sheet(
 
 ### 一括ステータス変更（神の手）
 
-通常のワークフローを迂回するため慎重に:
+通常のワークフローを迂回するため慎重に。`status` の有効値（16値）と神の手バリデーション（中間評価フラグ・自己評価フラグとの整合性）は `references/sheet_statuses.md` を参照。
 
 ```
 scale_bulk_update_status(

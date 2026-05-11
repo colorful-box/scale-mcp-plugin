@@ -131,11 +131,22 @@ levels=[
 |--------|------|
 | `scale_list_score_notations` | 評点表記一覧 |
 | `scale_get_score_notation` | 評点表記詳細 |
-| `scale_create_score_notation` | 評点表記作成（段階数、カスタムラベル） |
-| `scale_update_score_notation` | 評点表記更新 |
+| `scale_create_score_notation` | 評点表記作成（`name`, `score_levels`(1-10), `use_custom_labels`, `labels`） |
+| `scale_update_score_notation` | 評点表記更新（`labels`, `use_custom_labels`, `is_active` 等） |
 | `scale_delete_score_notation` | 評点表記削除（評価軸に紐付いていると不可） |
 
 全て `company_admin` ロール。
+
+### `scale_create_score_notation` のパラメータ詳細
+
+| パラメータ | 必須 | 説明 |
+|-----------|-----|------|
+| `name` | ○ | 評点表記名 |
+| `score_levels` | ○ | 段階数（1〜10の整数） |
+| `use_custom_labels` | - | カスタムラベル利用フラグ。未指定なら `labels` の有無から自動推論される |
+| `labels` | 条件付 | `dict`（推奨: `{"1": "S", "2": "A"}`）または `list[str]`（`["S","A"]` は 1-origin の dict に自動変換）。`use_custom_labels=True` のとき必須 |
+
+`use_custom_labels=False`（または labels なし＆自動推論で false）なら数値表記（1,2,3…）として作成される。`is_active` は Create には存在せず Update でのみ指定可能。
 
 ## テンプレート（6ツール）
 
@@ -168,10 +179,10 @@ levels=[
 
 | ツール | 説明 | 主要パラメータ |
 |--------|------|--------------|
-| `scale_update_evaluation_sheet_status` | ステータス強制変更 | `sheet_id`, `status` |
-| `scale_bulk_update_status` | 一括ステータス変更 | `sheet_ids`, `status` |
-| `scale_god_hand_update_axis` | 評価軸の編集 | `sheet_id`, `axis_id`, 任意: `name`, `weight`(0-100), `show_scale`, `scale_labels` |
-| `scale_god_hand_update_item` | 評価項目の編集 | `sheet_id`, `item_id`, 任意: `name`, `detail`, `weight`, `show_item_scale`, `item_scale_labels` |
+| `scale_update_evaluation_sheet_status` | ステータス強制変更 | `sheet_id`, `status`（有効値16値は `references/sheet_statuses.md` 参照） |
+| `scale_bulk_update_status` | 一括ステータス変更 | `sheet_ids`, `status`（有効値16値は `references/sheet_statuses.md` 参照） |
+| `scale_god_hand_update_axis` | 評価軸の編集 | `sheet_id`, `axis_id`, 任意: `name`, `weight`(0-100), `show_scale`, `scale_labels`, `objective_type`(`outcome`/`behavior`/`other`) |
+| `scale_god_hand_update_item` | 評価項目の編集 | `sheet_id`, `item_id`, 任意: `category`(最大100文字), `name`, `detail`, `goal`, `weight`, `show_item_scale`, `item_scale_labels` |
 | `scale_god_hand_update_profile` | 被評価者・評価者・期間の変更 | `sheet_id`, 任意: `evaluatee_user_id`, `evaluator_1st/2nd/3rd_user_id`, `evaluation_period_id`, 職種・職位・所属名 |
 | `scale_god_hand_create_memo` | メモ追加 | `sheet_id`, `label`(1-100文字), `sort_order` |
 | `scale_god_hand_update_memo` | メモ編集 | `sheet_id`, `memo_id`, 任意: `label`, `sort_order` |
