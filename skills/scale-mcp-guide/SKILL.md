@@ -1,11 +1,11 @@
 ---
 name: scale-mcp-guide
-description: Scale人事評価システムの企業管理者（company_admin）向けMCPツール活用ガイド。テンプレート作成、評価シート配布、マスタ管理、データ分析など65個のscale_*ツールの使い方とワークフローを提供する。ユーザーがScale、人事評価、テンプレート、配布、評価期間、マスタ管理などの管理操作を依頼したときに参照する。
+description: Scale人事評価システムの企業管理者（company_admin）向けMCPツール活用ガイド。テンプレート作成、評価シート配布、マスタ管理、データ分析など88個のscale_*ツールの使い方とワークフローを提供する。ユーザーがScale、人事評価、テンプレート、配布、評価期間、マスタ管理などの管理操作を依頼したときに参照する。
 ---
 
 # Scale MCP ツール活用ガイド
 
-Scale人事評価システム（scale-hr.io）の82個のMCPツールを効果的に使うためのガイド。
+Scale人事評価システム（scale-hr.io）の88個のMCPツールを効果的に使うためのガイド。
 
 ## MCP サーバー接続設定
 
@@ -35,7 +35,7 @@ Scale人事評価システム（scale-hr.io）の82個のMCPツールを効果�
 
 | ロール | ツール数 | 操作範囲 |
 |--------|---------|---------|
-| `company_admin` | 65 | 企業内の全データCRUD |
+| `company_admin` | 88 | 企業内の全データCRUD |
 | `general` | 15 | 自分の評価シート・プロフィール・ダッシュボード |
 
 サーバーがロールに応じてツール一覧を自動フィルタリングする。権限エラー時は他のユーザー情報を開示せず「管理者に問い合わせてください」と案内すること。
@@ -209,10 +209,12 @@ Scale人事評価システム（scale-hr.io）の82個のMCPツールを効果�
 | ランク/評点表記 | 10 | `scale_*_rank/score_notation` |
 | ピッチ金額 | 3 | `scale_*_pitch_amount_setting/matrix` |
 | テンプレート | 6 | `scale_*_template` |
-| 評価シート | 12+ | `scale_*_evaluation_sheet` |
+| 評価シート | 18+ | `scale_*_evaluation_sheet` |
 | 配布 | 3 | `scale_*_distribute/distribution` |
 | 個人シート | 1 | `scale_list_my_evaluation_sheets` |
 | 掲示板 | 3 | `scale_*_bulletin` |
+| 1on1 | 7 | `scale_*_one_on_one_*` |
+| 分析 | 1 | `scale_get_evaluation_analysis` |
 | 1on1 | 7 | `scale_*_one_on_one_*` |
 | 分析 | 1 | `scale_get_evaluation_analysis` |
 

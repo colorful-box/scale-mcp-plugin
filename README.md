@@ -6,13 +6,13 @@ Scale人事評価システム（[scale-hr.io](https://scale-hr.io)）のMCPツ�
 
 - **Agent Skill**: Scale MCPツールの使い方をClaude Codeに教えるガイド
 - **MCP サーバー設定**: プラグインインストールでScale MCPサーバーが自動設定される
-- **ロール別スキル**: 企業管理者向け（65ツール）と一般ユーザー向け（15ツール）を分離提供
+- **ロール別スキル**: 企業管理者向け（88ツール）と一般ユーザー向け（15ツール）を分離提供
 
 ### スキル一覧
 
 | スキル | 対象ロール | ツール数 | 内容 |
 |--------|-----------|---------|------|
-| `scale-mcp-guide` | `company_admin` | 65 | テンプレート作成、評価シート配布、マスタ管理、データ分析、神の手操作 |
+| `scale-mcp-guide` | `company_admin` | 88 | テンプレート作成、評価シート配布、マスタ管理、データ分析、神の手操作 |
 | `scale-mcp-guide-general` | `general` | 15 | 自分の評価シート確認・提出、1on1セッション、プロフィール管理、ダッシュボード |
 
 MCPサーバーがログインユーザーのロールに応じて利用可能なツールを自動フィルタリングします。
@@ -133,7 +133,7 @@ Claude Code が以下のツールを自動的に実行します:
 | `references/workflows.md` | 詳細なワークフローパターン |
 | `references/template_settings.md` | テンプレート設定の全パラメータと典型パターン例 |
 | `references/template_excel_format.md` | Excel入力フォーマット仕様 |
-| `references/tool_reference.md` | 全82ツールのカテゴリ別リファレンス |
+| `references/tool_reference.md` | 全88ツールのカテゴリ別リファレンス |
 
 ### 一般ユーザー向け（`scale-mcp-guide-general`）
 
